@@ -26,7 +26,7 @@ pnpm --filter client dev
 
 The dev server runs on http://localhost:5173 and proxies `/api/*` to the
 backend at `http://127.0.0.1:8000` (override with `BACKEND_URL`). Start the
-backend from the repo root with `pnpm dev` (MCP servers + API via
+backend from the repo root with `pnpm server:dev` (MCP servers + API via
 `node server/main.js dev`).
 
 ## Scripts (in `client/`)

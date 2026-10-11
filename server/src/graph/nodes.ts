@@ -79,7 +79,7 @@ function historyText(state: GraphState, maxTurns = 6): string {
 
 const ORDER_RE = /(?<!\d)(\d{4,})(?!\d)/;
 
-function extractOrderId(text: string): string | null {
+export function extractOrderId(text: string): string | null {
   const m = ORDER_RE.exec(text ?? "");
   return m ? m[1] : null;
 }
@@ -351,7 +351,7 @@ function withTurnContext(
   return [...window, msg];
 }
 
-function agentMessages(state: GraphState): BaseMessage[] {
+export function agentMessages(state: GraphState): BaseMessage[] {
   let window = memory.buildWindow(
     state.messages,
     state.summaryUptoMsgId ?? 0,

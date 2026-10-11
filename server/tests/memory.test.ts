@@ -8,6 +8,8 @@ import {
   compressToolResult,
   contentToString,
   countTokens,
+  layerTokens,
+  nextLayer1From,
   summarySystem,
   toLayer2,
   tokensToChars,
@@ -85,5 +87,94 @@ describe("memory", () => {
     const window = buildWindow(messages, 1, 0, 100_000);
     expect(window).toHaveLength(2);
     expect(contentToString(window[0].content)).toBe("new question");
+  });
+});
+
+function dialogue(
+  turns: number,
+  replyChars = 200,
+): (AIMessage | HumanMessage)[] {
+  const msgs: (AIMessage | HumanMessage)[] = [];
+  for (let i = 1; i <= turns; i += 1) {
+    msgs.push(
+      new HumanMessage({
+        content: `question of turn ${i}`,
+        id: `db-${i * 2 - 1}`,
+      }),
+    );
+    msgs.push(new AIMessage({ content: "x".repeat(replyChars) }));
+  }
+  return msgs;
+}
+
+describe("layered window (ch07)", () => {
+  it("never compresses user text", () => {
+    const msgs = [
+      new HumanMessage(
+        "that pair of running shoes I asked about, order 202603150088",
+      ),
+    ];
+    expect(contentToString(toLayer2(msgs)[0].content)).toBe(
+      contentToString(msgs[0].content),
+    );
+  });
+
+  it("layer 2 rendering is idempotent", () => {
+    // Degradation happens in batches; re-rendering must be byte-stable or the
+    // prompt-cache prefix keeps changing.
+    const msgs = [
+      ...dialogue(3),
+      new ToolMessage({
+        content: "e".repeat(4000),
+        tool_call_id: "t1",
+        name: "query_faq",
+      }),
+    ];
+    const once = toLayer2(msgs);
+    const twice = toLayer2(once);
+    expect(once.map((m) => contentToString(m.content))).toEqual(
+      twice.map((m) => contentToString(m.content)),
+    );
+  });
+
+  it("keeps message ids (window anchors) through compression", () => {
+    const msgs = dialogue(2);
+    const rendered = toLayer2(msgs);
+    rendered.forEach((m, i) => {
+      expect(m.id).toBe(msgs[i].id);
+    });
+  });
+
+  it("without anchors the window is a single layer", () => {
+    const msgs = dialogue(3);
+    expect(buildWindow(msgs, 0, 0, 10_000)).toEqual(msgs);
+  });
+
+  it("splits half-compressed layer 2 from verbatim layer 1 at the anchor", () => {
+    const msgs = dialogue(6, 400);
+    const out = buildWindow(msgs, 0, 5, 100_000);
+    expect(contentToString(out[1].content)).toContain("truncated"); // turn-1 reply compressed
+    expect(contentToString(out.at(-1)?.content ?? "")).not.toContain(
+      "truncated",
+    ); // latest intact
+  });
+
+  it("layer tokens split at the anchor and compression shrinks the total", () => {
+    const msgs = dialogue(6, 400);
+    const [l2, l1] = layerTokens(msgs, 0, 5);
+    expect(l2).toBeGreaterThan(0);
+    expect(l1).toBeGreaterThan(0);
+    expect(l2 + l1).toBeLessThan(countTokens(msgs));
+  });
+
+  it("a tighter layer-1 budget moves the boundary later", () => {
+    const msgs = dialogue(10, 400);
+    const tight = nextLayer1From(msgs, 0, 500);
+    const loose = nextLayer1From(msgs, 0, 5_000);
+    expect(tight).toBeGreaterThan(loose);
+  });
+
+  it("returns 0 when the budget is ample (no degradation)", () => {
+    expect(nextLayer1From(dialogue(3), 0, 1_000_000)).toBe(0);
   });
 });

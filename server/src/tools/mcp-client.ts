@@ -100,7 +100,7 @@ const fmtReturn: ResultFormatter = (d) => {
   };
 };
 
-const FORMATTERS: Record<string, ResultFormatter> = {
+export const FORMATTERS: Record<string, ResultFormatter> = {
   query_logistics: fmtLogistics,
   query_warranty: fmtWarranty,
   query_return_status: fmtReturn,

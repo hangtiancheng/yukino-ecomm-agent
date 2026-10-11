@@ -4,10 +4,7 @@ Node.js/TypeScript e-commerce customer-service agent ("Yukino Select"), a pnpm w
 
 - `client/` — CSR-only SPA console (Lit + `@yukino.js/lit-jsx` + Tailwind v4), see
   [`client/README.md`](client/README.md);
-- `server/` — Hono + LangChain/LangGraph backend, migrated from the original Python project
-  (kept under `.legacy/python` for reference; see [`Yukino.md`](Yukino.md) for the full
-  migration record). It is not wire-compatible with the Python service; capabilities are
-  aligned and response shapes are kept close.
+- `server/` — Hono + LangChain/LangGraph backend, migrated from the original Python project. It is not wire-compatible with the Python service; capabilities are aligned and response shapes are kept close.
 
 ## Getting started
 
@@ -15,8 +12,8 @@ Node.js/TypeScript e-commerce customer-service agent ("Yukino Select"), a pnpm w
 pnpm install                        # from the repo root (pnpm workspace: client + server)
 cp server/.env.example server/.env  # fill in upstream keys + DATABASE_URL
 pnpm db:migrate                     # prisma migrate deploy — before the first start
-pnpm dev                            # MCP servers + API (node server/main.js dev) on :8000
-pnpm dev:client                     # Vite dev server on :5173, proxies /api/* to :8000
+pnpm server:dev                     # MCP servers + API (node server/main.js dev) on :8000
+pnpm client-dev                     # Vite dev server on :5173, proxies /api/* to :8000
 ```
 
 Root scripts delegate into the workspaces: `pnpm start` (API without MCP servers), `pnpm test`
