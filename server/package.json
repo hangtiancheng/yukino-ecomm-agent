@@ -2,7 +2,7 @@
   "name": "server",
   "version": "0.0.0",
   "private": true,
-  "description": "yukino-agent2 customer-service agent backend",
+  "description": "yukino-ecomm-agent customer-service agent backend",
   "main": "src/index.ts",
   "imports": {
     "#/*": "./src/*",

@@ -129,7 +129,7 @@ async function withClient<T>(
   url: string,
   fn: (client: Client) => Promise<T>,
 ): Promise<T> {
-  const client = new Client({ name: "yukino-agent2", version: "0.1.0" });
+  const client = new Client({ name: "yukino-ecomm-agent", version: "0.1.0" });
   const transport = new StreamableHTTPClientTransport(new URL(url));
   return withTimeout(
     (async () => {

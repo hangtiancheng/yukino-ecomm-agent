@@ -405,8 +405,8 @@ async function langfuseUp() {
     "Langfuse started: http://localhost:3000 (admin@yukino.local / yukino123)",
   );
   console.log("Keys are headless-provisioned; put them in server/.env:");
-  console.log("  LANGFUSE_PUBLIC_KEY=pk-lf-yukino-agent2-local");
-  console.log("  LANGFUSE_SECRET_KEY=sk-lf-yukino-agent2-local");
+  console.log("  LANGFUSE_PUBLIC_KEY=pk-lf-yukino-ecomm-agent-local");
+  console.log("  LANGFUSE_SECRET_KEY=sk-lf-yukino-ecomm-agent-local");
   console.log("  LANGFUSE_BASE_URL=http://localhost:3000");
 }
 

@@ -1,6 +1,6 @@
 {
   "packageManager": "pnpm@12.10.1",
-  "name": "yukino-agent2",
+  "name": "yukino-ecomm-agent",
   "version": "0.0.0",
   "private": true,
   "description": "Yukino Select customer-service agent — pnpm workspace (client SPA + server backend)",

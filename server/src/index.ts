@@ -15,5 +15,5 @@ if (missing.length > 0) {
 }
 
 await scanBuiltin();
-log.info({ root: settings.root }, "starting yukino-agent2 server");
+log.info({ root: settings.root }, "starting yukino-ecomm-agent server");
 await startServer();

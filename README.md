@@ -1,4 +1,4 @@
-# yukino-agent2
+# yukino-ecomm-agent
 
 Node.js/TypeScript e-commerce customer-service agent ("Yukino Select"), a pnpm workspace:
 
