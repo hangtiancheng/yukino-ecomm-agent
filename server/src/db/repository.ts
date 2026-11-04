@@ -398,20 +398,39 @@ export async function knowledgeRevision(): Promise<string> {
   return `${result._count._all}:${result._max.id ?? 0}:${result._max.updatedAt?.getTime() ?? 0}`;
 }
 
+function toSearchChunk(row: {
+  id: number;
+  questions: string;
+  answer: string;
+  sectionPath: string | null;
+  contentType: string | null;
+  category: string;
+  embedding: string | null;
+}): VectorizedChunk {
+  return {
+    id: row.id,
+    question: row.questions,
+    answer: row.answer,
+    section_path: row.sectionPath ?? "",
+    content_type: row.contentType ?? "",
+    category: row.category,
+    embedding: parseWith(numberArraySchema, row.embedding) ?? [],
+  };
+}
+
 export async function listVectorizedChunks(): Promise<VectorizedChunk[]> {
   const rows = await prisma.knowledgeChunk.findMany({
     where: { vectorizeStatus: "done" },
     orderBy: { id: "asc" },
   });
-  return rows.map((r) => ({
-    id: r.id,
-    question: r.questions,
-    answer: r.answer,
-    section_path: r.sectionPath ?? "",
-    content_type: r.contentType ?? "",
-    category: r.category,
-    embedding: parseWith(numberArraySchema, r.embedding) ?? [],
-  }));
+  return rows.map(toSearchChunk);
+}
+
+export async function listChunksForSearch(): Promise<VectorizedChunk[]> {
+  const rows = await prisma.knowledgeChunk.findMany({
+    orderBy: { id: "asc" },
+  });
+  return rows.map(toSearchChunk);
 }
 
 export interface StagingStats {

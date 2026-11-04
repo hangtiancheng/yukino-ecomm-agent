@@ -9,7 +9,7 @@ import {
 
 const mocks = vi.hoisted(() => ({
   knowledgeRevision: vi.fn(),
-  listVectorizedChunks: vi.fn(),
+  listChunksForSearch: vi.fn(),
   milvusEnabled: vi.fn(() => false),
   milvusBm25Search: vi.fn(),
   milvusHybridSearch: vi.fn(),
@@ -17,7 +17,7 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock("#/db/repository.ts", () => ({
   knowledgeRevision: mocks.knowledgeRevision,
-  listVectorizedChunks: mocks.listVectorizedChunks,
+  listChunksForSearch: mocks.listChunksForSearch,
 }));
 vi.mock("#/kb/milvus.ts", () => ({
   milvusEnabled: mocks.milvusEnabled,
@@ -47,7 +47,7 @@ describe("knowledge store", () => {
     invalidateVectorCache();
     mocks.knowledgeRevision.mockReset();
     mocks.knowledgeRevision.mockResolvedValue("revision");
-    mocks.listVectorizedChunks.mockReset();
+    mocks.listChunksForSearch.mockReset();
     mocks.milvusEnabled.mockReset();
     mocks.milvusEnabled.mockReturnValue(false);
     mocks.milvusBm25Search.mockReset();
@@ -75,7 +75,7 @@ describe("knowledge store", () => {
       "shipping",
     );
     expect(hits).toEqual([hit]);
-    expect(mocks.listVectorizedChunks).not.toHaveBeenCalled();
+    expect(mocks.listChunksForSearch).not.toHaveBeenCalled();
   });
 
   it("routes hybrid search to Milvus RRF fusion when Milvus is the store", async () => {
@@ -91,11 +91,11 @@ describe("knowledge store", () => {
       50,
       null,
     );
-    expect(mocks.listVectorizedChunks).not.toHaveBeenCalled();
+    expect(mocks.listChunksForSearch).not.toHaveBeenCalled();
   });
 
   it("calculates BM25 document frequency inside the category filter", async () => {
-    mocks.listVectorizedChunks.mockResolvedValue([
+    mocks.listChunksForSearch.mockResolvedValue([
       row(1, "selected", "return policy"),
       ...Array.from({ length: 10 }, (_, index) =>
         row(index + 2, "other", "return policy"),
@@ -109,28 +109,28 @@ describe("knowledge store", () => {
   });
 
   it("reuses the index until the database revision changes", async () => {
-    mocks.listVectorizedChunks.mockResolvedValue([row(1, "test", "apple")]);
+    mocks.listChunksForSearch.mockResolvedValue([row(1, "test", "apple")]);
 
     expect((await bm25Search("apple", 5))[0]?.id).toBe(1);
     expect((await bm25Search("apple", 5))[0]?.id).toBe(1);
-    expect(mocks.listVectorizedChunks).toHaveBeenCalledTimes(1);
+    expect(mocks.listChunksForSearch).toHaveBeenCalledTimes(1);
   });
 
   it("reloads SQLite rows when the cross-process revision changes", async () => {
     mocks.knowledgeRevision
       .mockResolvedValueOnce("revision-1")
       .mockResolvedValueOnce("revision-2");
-    mocks.listVectorizedChunks
+    mocks.listChunksForSearch
       .mockResolvedValueOnce([row(1, "test", "apple")])
       .mockResolvedValueOnce([row(2, "test", "banana")]);
 
     expect((await bm25Search("apple", 5))[0]?.id).toBe(1);
     expect((await bm25Search("banana", 5))[0]?.id).toBe(2);
-    expect(mocks.listVectorizedChunks).toHaveBeenCalledTimes(2);
+    expect(mocks.listChunksForSearch).toHaveBeenCalledTimes(2);
   });
 
   it("ignores external rows without local embeddings", async () => {
-    mocks.listVectorizedChunks.mockResolvedValue([
+    mocks.listChunksForSearch.mockResolvedValue([
       row(1, "test", "external", []),
       row(2, "test", "local", [1, 0]),
     ]);
@@ -141,7 +141,7 @@ describe("knowledge store", () => {
   });
 
   it("rejects mixed embedding dimensions", async () => {
-    mocks.listVectorizedChunks.mockResolvedValue([
+    mocks.listChunksForSearch.mockResolvedValue([
       row(1, "test", "mismatched", [1, 0, 0]),
     ]);
 

@@ -12,6 +12,14 @@ const mocks = vi.hoisted(() => ({
   denseSearch: vi.fn(),
 }));
 
+vi.mock("#/config.ts", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("#/config.ts")>();
+  return {
+    ...actual,
+    embeddingsEnabled: () => true,
+    rerankEnabled: () => true,
+  };
+});
 vi.mock("#/core/embeddings.ts", () => ({ embedQuery: mocks.embedQuery }));
 vi.mock("#/core/rerank.ts", () => ({ rerank: mocks.rerank }));
 vi.mock("#/kb/store.ts", () => ({

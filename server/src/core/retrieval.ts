@@ -1,9 +1,14 @@
 import { embedQuery } from "./embeddings.ts";
 import { rerank } from "./rerank.ts";
 
-import { settings } from "#/config.ts";
+import { embeddingsEnabled, rerankEnabled, settings } from "#/config.ts";
 import type { KnowledgeHit } from "#/kb/store.ts";
 import * as store from "#/kb/store.ts";
+import { childLogger } from "#/logger.ts";
+
+const log = childLogger("retrieval");
+let warnedNoEmbeddings = false;
+let warnedNoRerank = false;
 
 const CLAUSE_RE = /[,，;；?？。]/;
 const MIN_CLAUSE = 4;
@@ -52,6 +57,17 @@ export function arrangeHeadTail<T>(items: T[]): T[] {
   return [items[0], ...items.slice(2), items[1]];
 }
 
+function scoreAsConfidence(hits: KnowledgeHit[]): KnowledgeHit[] {
+  const top = hits.reduce((max, hit) => Math.max(max, hit.score), 0);
+  if (top <= 0) {
+    return hits;
+  }
+  return hits.map((hit) => ({
+    ...hit,
+    rerank_score: Number((hit.score / top).toFixed(4)),
+  }));
+}
+
 export interface SearchOptions {
   strategy?: "vector" | "bm25" | "hybrid" | "hybrid_rerank";
   topK?: number | null;
@@ -95,6 +111,17 @@ export async function searchKnowledge(
   if (strategy === "bm25") {
     return store.bm25Search(bm25Query, k, category);
   }
+  if (!embeddingsEnabled()) {
+    if (!warnedNoEmbeddings) {
+      log.warn(
+        { strategy },
+        "EMBED_API_KEY is not configured; falling back to BM25 retrieval",
+      );
+      warnedNoEmbeddings = true;
+    }
+    const hits = await store.bm25Search(bm25Query, k, category);
+    return strategy === "hybrid_rerank" ? scoreAsConfidence(hits) : hits;
+  }
   if (strategy === "vector") {
     const vector = await embedQuery(query);
     return store.denseSearch(vector, k, category);
@@ -112,6 +139,17 @@ export async function searchKnowledge(
   );
   if (strategy === "hybrid") {
     return hits.slice(0, k);
+  }
+  if (!rerankEnabled()) {
+    if (!warnedNoRerank) {
+      log.warn(
+        "RERANK_API_KEY is not configured; returning hybrid hits without reranking",
+      );
+      warnedNoRerank = true;
+    }
+    return strategy === "hybrid_rerank"
+      ? scoreAsConfidence(hits.slice(0, k))
+      : hits.slice(0, k);
   }
 
   const docs = hits.map((h) => `${h.question} ${h.answer}`);

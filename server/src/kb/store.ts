@@ -1,7 +1,7 @@
 import * as milvus from "./milvus.ts";
 
 import { settings } from "#/config.ts";
-import { knowledgeRevision, listVectorizedChunks } from "#/db/repository.ts";
+import { knowledgeRevision, listChunksForSearch } from "#/db/repository.ts";
 
 export const COLLECTION = settings.milvusCollection;
 
@@ -71,7 +71,7 @@ async function loadChunks(): Promise<StoreCache> {
     if (cache?.revision === revision) {
       return cache;
     }
-    const rows = await listVectorizedChunks();
+    const rows = await listChunksForSearch();
     const docs: StoreDoc[] = rows.map((row) => {
       const text = `${row.category}\n${row.question}\n${row.answer}`;
       const tokens = tokenize(text);

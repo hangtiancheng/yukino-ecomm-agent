@@ -137,13 +137,19 @@ export const settings = {
   port: num("PORT", 8000),
 };
 
+export function embeddingsEnabled(): boolean {
+  return settings.embedApiKey !== "";
+}
+
+export function rerankEnabled(): boolean {
+  return settings.rerankApiKey !== "";
+}
+
 export function missingRuntimeConfig(): string[] {
   const required: [string, string][] = [
     ["CHAT_MODEL", settings.chatModel],
     ["CHAT_BASE_URL", settings.chatBaseUrl],
     ["CHAT_API_KEY", settings.chatApiKey],
-    ["EMBED_API_KEY", settings.embedApiKey],
-    ["RERANK_API_KEY", settings.rerankApiKey],
   ];
   return required.filter(([, value]) => !value).map(([key]) => key);
 }

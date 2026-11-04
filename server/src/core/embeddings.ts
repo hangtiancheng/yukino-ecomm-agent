@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-import { settings } from "#/config.ts";
+import { embeddingsEnabled, settings } from "#/config.ts";
 
 let client: OpenAI | null = null;
 
@@ -15,6 +15,11 @@ function getClient(): OpenAI {
 }
 
 export async function embedTexts(texts: string[]): Promise<number[][]> {
+  if (!embeddingsEnabled()) {
+    throw new Error(
+      "EMBED_API_KEY is not configured; embedding-backed jobs (kb-vectorize/kb-repatch) are unavailable",
+    );
+  }
   const resp = await getClient().embeddings.create({
     model: settings.embedModel,
     input: texts,
