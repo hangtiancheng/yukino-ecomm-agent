@@ -115,16 +115,6 @@ export function getChatModel(options: GetModelOptions = {}): ChatOpenAI {
   });
 }
 
-const NO_STREAM_TOOLCALL_FAMILIES = ["minimax"];
-
-export function needsNonStreamingTools(
-  model: string | null = null,
-  slot = "chat",
-): boolean {
-  const name = String(model || resolveSlot(slot)[0] || "").toLowerCase();
-  return NO_STREAM_TOOLCALL_FAMILIES.some((f) => name.includes(f));
-}
-
 export interface StructuredOptions {
   model?: string | null;
   streaming?: boolean;
@@ -137,12 +127,9 @@ export function structured<S extends z.ZodType>(
   options: StructuredOptions = {},
 ): Runnable<BaseLanguageModelInput, z.infer<S>> {
   const { model = null, temperature = null, slot = "chat" } = options;
-  let streaming = options.streaming ?? true;
+  const streaming = options.streaming ?? true;
   const [slotModel, slotBase] = resolveSlot(slot);
   const name = String(model || slotModel || "").toLowerCase();
-  if (needsNonStreamingTools(model, slot)) {
-    streaming = false;
-  }
 
   const m = getChatModel({
     streaming,
