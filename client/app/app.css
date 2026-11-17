@@ -2,137 +2,150 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ─────────────────────────────────────────────────────────────
+   Yukino Select · design tokens
+   A solid Tencent-blue theme on cool neutral surfaces. Every
+   component consumes these semantic names, so the whole UI
+   re-themes in one place. No gradients on theme colors.
+   ───────────────────────────────────────────────────────────── */
 :root {
-  --primary: #0b57d0;
+  /* Primary — Tencent blue (solid, never gradient) */
+  --primary: #006eff;
   --on-primary: #ffffff;
-  --primary-container: #d3e3fd;
-  --on-primary-container: #041e49;
+  --primary-container: #d9eaff;
+  --on-primary-container: #003b8e;
 
-  --secondary: #565f71;
+  /* Secondary — muted slate */
+  --secondary: #55627a;
   --on-secondary: #ffffff;
-  --secondary-container: #dae2f9;
-  --on-secondary-container: #131c2b;
+  --secondary-container: #e1e8f5;
+  --on-secondary-container: #344157;
 
-  --tertiary: #7d57c4;
+  /* Tertiary — deep ocean blue, a tonal accent next to primary */
+  --tertiary: #0052d9;
   --on-tertiary: #ffffff;
-  --tertiary-container: #eaddff;
-  --on-tertiary-container: #4a2383;
+  --tertiary-container: #d6e5ff;
+  --on-tertiary-container: #00306e;
 
-  --error: #b3261e;
+  /* Feedback */
+  --error: #bc3742;
   --on-error: #ffffff;
-  --error-container: #f9dedc;
-  --on-error-container: #410e0b;
+  --error-container: #ffd9dc;
+  --on-error-container: #70131d;
 
-  --success: #188038;
+  --success: #247a52;
   --on-success: #ffffff;
-  --success-container: #ceead6;
-  --on-success-container: #0d652d;
+  --success-container: #cceedd;
+  --on-success-container: #0b4b30;
 
-  --warning: #a56a00;
+  --warning: #96601a;
   --on-warning: #ffffff;
-  --warning-container: #feefc3;
-  --on-warning-container: #6a4800;
+  --warning-container: #ffe9c7;
+  --on-warning-container: #5c3b08;
 
-  --surface: #f8f9fc;
-  --surface-dim: #d9dce3;
+  /* Surfaces — cool neutral with a hint of blue */
+  --surface: #f7f9fc;
+  --surface-dim: #dee4ee;
   --surface-bright: #ffffff;
   --surface-container-lowest: #ffffff;
-  --surface-container-low: #f2f5fa;
-  --surface-container: #eceff5;
-  --surface-container-high: #e6e9f0;
-  --surface-container-highest: #e0e4ec;
-  --on-surface: #1b1d22;
-  --on-surface-variant: #454850;
-  --outline: #757880;
-  --outline-variant: #c5c8d0;
-  --inverse-surface: #303238;
-  --inverse-on-surface: #f2f4f9;
-  --scrim: #000000;
+  --surface-container-low: #f1f4f9;
+  --surface-container: #e9eef5;
+  --surface-container-high: #e1e7f0;
+  --surface-container-highest: #d9e0eb;
+  --on-surface: #1c2431;
+  --on-surface-variant: #566174;
+  --outline: #7d8899;
+  --outline-variant: #d2d9e4;
+  --inverse-surface: #2e3746;
+  --inverse-on-surface: #f1f4f9;
+  --scrim: #131a24;
 
   --card: #ffffff;
-  --card-hover: #f2f5fa;
+  --card-hover: #f7fafd;
 
-  --terminal: #1a1d23;
-  --terminal-ink: #e8eaef;
+  --terminal: #1f2733;
+  --terminal-ink: #eef2f8;
 
-  --chart-1: #4285f4;
-  --chart-2: #ea4335;
-  --chart-3: #f9ab00;
-  --chart-4: #34a853;
-  --chart-5: #ff6d01;
-  --chart-6: #46bdc6;
-  --chart-7: #a142f4;
-  --chart-8: #f538a0;
+  /* Charts — Tencent-anchored, harmonious eight-tone set */
+  --chart-1: #006eff;
+  --chart-2: #e0603f;
+  --chart-3: #e0a021;
+  --chart-4: #2f9c73;
+  --chart-5: #ec7b3c;
+  --chart-6: #3d9fb4;
+  --chart-7: #8265d8;
+  --chart-8: #d7598f;
 
-  --e-key: rgb(0 0 0 / 22%);
-  --e-amb: rgb(0 0 0 / 10%);
+  /* Elevation — cool blue-grey tint, not flat grey */
+  --e-key: rgb(24 52 96 / 18%);
+  --e-amb: rgb(24 52 96 / 8%);
 
   color-scheme: light;
 }
 
 .dark {
-  --primary: #a8c7fa;
-  --on-primary: #062e6f;
-  --primary-container: #0842a0;
-  --on-primary-container: #d3e3fd;
+  --primary: #7cb2ff;
+  --on-primary: #06315f;
+  --primary-container: #154187;
+  --on-primary-container: #d9eaff;
 
-  --secondary: #bec6dc;
-  --on-secondary: #283041;
-  --secondary-container: #3e4759;
-  --on-secondary-container: #dae2f9;
+  --secondary: #b6c2d4;
+  --on-secondary: #263140;
+  --secondary-container: #3d495c;
+  --on-secondary-container: #e1e8f5;
 
-  --tertiary: #cfbcff;
-  --on-tertiary: #4c2a85;
-  --tertiary-container: #6242a3;
-  --on-tertiary-container: #eaddff;
+  --tertiary: #8fbaff;
+  --on-tertiary: #052b63;
+  --tertiary-container: #1a3a72;
+  --on-tertiary-container: #d6e5ff;
 
-  --error: #ffb4ab;
-  --on-error: #690005;
-  --error-container: #93000a;
-  --on-error-container: #ffdad6;
+  --error: #ffb3b8;
+  --on-error: #6a101a;
+  --error-container: #8a1b27;
+  --on-error-container: #ffdade;
 
-  --success: #81c995;
-  --on-success: #00391a;
-  --success-container: #1e4620;
-  --on-success-container: #c4eed0;
+  --success: #86d7ae;
+  --on-success: #0a4229;
+  --success-container: #195c3c;
+  --on-success-container: #d1f1df;
 
-  --warning: #fdd663;
-  --on-warning: #4c3800;
-  --warning-container: #6a5200;
-  --on-warning-container: #feefc3;
+  --warning: #f3cf82;
+  --on-warning: #4c3505;
+  --warning-container: #6b4b09;
+  --on-warning-container: #ffe9c7;
 
-  --surface: #121417;
-  --surface-dim: #121417;
-  --surface-bright: #383a40;
-  --surface-container-lowest: #0c0e11;
-  --surface-container-low: #1a1c20;
-  --surface-container: #1e2025;
-  --surface-container-high: #292b30;
-  --surface-container-highest: #34363b;
-  --on-surface: #e3e5ea;
-  --on-surface-variant: #c5c8d0;
-  --outline: #8f929a;
-  --outline-variant: #454850;
-  --inverse-surface: #e3e5ea;
-  --inverse-on-surface: #303238;
+  --surface: #101620;
+  --surface-dim: #101620;
+  --surface-bright: #333c4b;
+  --surface-container-lowest: #0a0f17;
+  --surface-container-low: #171e29;
+  --surface-container: #1d2531;
+  --surface-container-high: #273140;
+  --surface-container-highest: #323c4c;
+  --on-surface: #e9eef6;
+  --on-surface-variant: #bcc7d6;
+  --outline: #8493a8;
+  --outline-variant: #414c5d;
+  --inverse-surface: #e9eef6;
+  --inverse-on-surface: #2e3746;
 
-  --card: #1e2025;
-  --card-hover: #292b30;
+  --card: #1d2531;
+  --card-hover: #273140;
 
-  --terminal: #0c0e12;
-  --terminal-ink: #e8eaef;
+  --terminal: #0a0f17;
+  --terminal-ink: #eef2f8;
 
-  --chart-1: #8ab4f8;
-  --chart-2: #f28b82;
-  --chart-3: #fdd663;
-  --chart-4: #81c995;
-  --chart-5: #fcad70;
-  --chart-6: #78d9ec;
-  --chart-7: #c58af9;
-  --chart-8: #ff8bcb;
+  --chart-1: #7cb2ff;
+  --chart-2: #f28e70;
+  --chart-3: #f3c65f;
+  --chart-4: #6ecfa5;
+  --chart-5: #f7a06b;
+  --chart-6: #6cc4d8;
+  --chart-7: #ad97f0;
+  --chart-8: #ef8fb8;
 
-  --e-key: rgb(0 0 0 / 50%);
-  --e-amb: rgb(0 0 0 / 28%);
+  --e-key: rgb(0 0 0 / 55%);
+  --e-amb: rgb(0 0 0 / 32%);
 
   color-scheme: dark;
 }
@@ -193,60 +206,63 @@
   --color-chart-7: var(--chart-7);
   --color-chart-8: var(--chart-8);
 
+  /* Derived interactive tones */
   --color-primary-hover: color-mix(
     in srgb,
-    var(--primary) 92%,
+    var(--primary) 90%,
     var(--on-primary)
   );
   --color-primary-pressed: color-mix(
     in srgb,
-    var(--primary) 86%,
+    var(--primary) 82%,
     var(--on-primary)
   );
-  --color-error-hover: color-mix(in srgb, var(--error) 92%, var(--on-error));
-  --color-error-pressed: color-mix(in srgb, var(--error) 86%, var(--on-error));
+  --color-error-hover: color-mix(in srgb, var(--error) 90%, var(--on-error));
+  --color-error-pressed: color-mix(in srgb, var(--error) 82%, var(--on-error));
   --color-success-hover: color-mix(
     in srgb,
-    var(--success) 92%,
+    var(--success) 90%,
     var(--on-success)
   );
   --color-primary-container-hover: color-mix(
     in srgb,
-    var(--primary-container) 90%,
+    var(--primary-container) 88%,
     var(--on-primary-container)
   );
   --color-secondary-container-hover: color-mix(
     in srgb,
-    var(--secondary-container) 90%,
+    var(--secondary-container) 88%,
     var(--on-secondary-container)
   );
   --color-tertiary-container-hover: color-mix(
     in srgb,
-    var(--tertiary-container) 90%,
+    var(--tertiary-container) 88%,
     var(--on-tertiary-container)
   );
   --color-error-container-hover: color-mix(
     in srgb,
-    var(--error-container) 90%,
+    var(--error-container) 88%,
     var(--on-error-container)
   );
   --color-success-container-hover: color-mix(
     in srgb,
-    var(--success-container) 90%,
+    var(--success-container) 88%,
     var(--on-success-container)
   );
   --color-warning-container-hover: color-mix(
     in srgb,
-    var(--warning-container) 90%,
+    var(--warning-container) 88%,
     var(--on-warning-container)
   );
 
+  /* Elevation */
   --shadow-e1: 0 1px 2px 0 var(--e-key), 0 1px 3px 1px var(--e-amb);
-  --shadow-e2: 0 1px 2px 0 var(--e-key), 0 2px 6px 2px var(--e-amb);
-  --shadow-e3: 0 1px 3px 0 var(--e-key), 0 4px 8px 3px var(--e-amb);
-  --shadow-e4: 0 2px 3px 0 var(--e-key), 0 6px 10px 4px var(--e-amb);
-  --shadow-e5: 0 4px 4px 0 var(--e-key), 0 8px 12px 6px var(--e-amb);
+  --shadow-e2: 0 1px 2px 0 var(--e-key), 0 3px 7px 2px var(--e-amb);
+  --shadow-e3: 0 2px 4px 0 var(--e-key), 0 6px 12px 3px var(--e-amb);
+  --shadow-e4: 0 3px 6px 0 var(--e-key), 0 10px 18px 5px var(--e-amb);
+  --shadow-e5: 0 5px 10px 0 var(--e-key), 0 16px 28px 8px var(--e-amb);
 
+  /* Radii */
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -255,6 +271,7 @@
   --radius-2xl: 32px;
   --radius-3xl: 40px;
 
+  /* Type scale */
   --text-headline-large: 32px;
   --text-headline-large--line-height: 40px;
   --text-headline-medium: 28px;
@@ -285,16 +302,19 @@
   --text-label-small--line-height: 16px;
   --text-label-small--font-weight: 500;
 
+  /* Motion */
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
   --ease-accel: cubic-bezier(0.3, 0, 0.8, 0.15);
 
+  /* Typefaces */
   --font-sans:
-    "Yukino", "Maple Mono", Menlo, "Cascadia Code", "Sarasa Gothic SC",
-    "PingFang SC", "Microsoft YaHei", sans-serif;
+    "Yukino Sans", "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    sans-serif;
   --font-mono:
-    "Yukino", "Maple Mono", Menlo, "Cascadia Code", "Sarasa Gothic SC",
-    "PingFang SC", "Microsoft YaHei", monospace;
+    "Yukino Mono", "Maple Mono", "JetBrains Mono", "SF Mono", Menlo,
+    "Cascadia Code", "PingFang SC", "Microsoft YaHei", monospace;
 }
 
 html,
@@ -306,6 +326,7 @@ html {
   background-color: var(--surface);
 }
 
+/* Custom elements are inline by default; opt them into block layout. */
 app-shell,
 chat-page,
 admin-page,
@@ -357,37 +378,49 @@ ledger-case-card {
   animation: typing-bounce 1s ease-in-out infinite;
 }
 
+/* Ambient aurora — a soft wash of violet and ember behind the app. */
 body {
   font-family: var(--font-sans);
   color: var(--on-surface);
   background-color: var(--surface);
   background-image:
     radial-gradient(
-      60rem 40rem at 110% -10%,
-      color-mix(in srgb, var(--primary) 8%, transparent),
-      transparent 60%
+      48rem 34rem at 108% -8%,
+      color-mix(in srgb, var(--primary) 13%, transparent),
+      transparent 62%
     ),
     radial-gradient(
-      50rem 35rem at -10% 0%,
-      color-mix(in srgb, var(--tertiary) 7%, transparent),
-      transparent 55%
+      42rem 30rem at -12% 4%,
+      color-mix(in srgb, var(--tertiary) 10%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      38rem 28rem at 50% 115%,
+      color-mix(in srgb, var(--chart-7) 8%, transparent),
+      transparent 60%
     );
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
 .dark body {
   background-image:
     radial-gradient(
-      60rem 40rem at 110% -10%,
-      color-mix(in srgb, var(--primary) 5%, transparent),
-      transparent 60%
+      50rem 36rem at 108% -8%,
+      color-mix(in srgb, var(--primary) 11%, transparent),
+      transparent 62%
     ),
     radial-gradient(
-      50rem 35rem at -10% 0%,
-      color-mix(in srgb, var(--tertiary) 4%, transparent),
-      transparent 55%
+      42rem 30rem at -12% 4%,
+      color-mix(in srgb, var(--tertiary) 8%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      38rem 28rem at 50% 115%,
+      color-mix(in srgb, var(--chart-7) 7%, transparent),
+      transparent 60%
     );
 }
 
@@ -406,6 +439,7 @@ select:focus-visible {
   outline: none;
 }
 
+/* Slim, unobtrusive scrollbars */
 .scroll-slim {
   scrollbar-width: thin;
   scrollbar-color: var(--outline-variant) transparent;
@@ -427,9 +461,41 @@ select:focus-visible {
   background-color: var(--outline);
 }
 
+/* Tabular numerals for aligned metrics */
 .num {
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Reusable polish classes
+   ───────────────────────────────────────────────────────────── */
+
+/* Frosted surface for floating chrome */
+.glass {
+  background-color: color-mix(in srgb, var(--card) 86%, transparent);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+}
+
+/* Hairline top highlight, like light catching a card edge */
+.edge-lit {
+  position: relative;
+}
+.edge-lit::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--primary) 26%, transparent) 22%,
+    color-mix(in srgb, var(--tertiary) 20%, transparent) 78%,
+    transparent
+  );
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

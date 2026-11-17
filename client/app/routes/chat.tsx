@@ -385,7 +385,7 @@ export class ChatPage extends LightElement {
           ref={(el: Element | undefined) => {
             enterOnce(el, { scale: 0.8, duration: 0.45 });
           }}
-          class="bg-primary-container shadow-e2 mb-5 grid h-28 w-28 place-items-center overflow-hidden rounded-3xl"
+          class="bg-primary shadow-e3 mb-6 grid h-28 w-28 place-items-center overflow-hidden rounded-[28px]"
         >
           <lottie-anim
             src="/lottie/cat-hero.lottie"
@@ -398,7 +398,7 @@ export class ChatPage extends LightElement {
           ref={(el: Element | undefined) => {
             enterOnce(el, { y: 10, duration: 0.4, delay: 0.08 });
           }}
-          class="text-headline-small text-on-surface font-medium"
+          class="text-primary text-headline-small font-semibold tracking-tight"
         >
           Hi, I'm Yukino
         </h1>
@@ -406,12 +406,12 @@ export class ChatPage extends LightElement {
           ref={(el: Element | undefined) => {
             enterOnce(el, { y: 10, duration: 0.4, delay: 0.14 });
           }}
-          class="text-body-medium text-on-surface-variant mt-2 max-w-sm leading-6"
+          class="text-body-medium text-on-surface-variant mt-2.5 max-w-sm leading-6"
         >
           Yukino Select's AI Assistant — ask me about products, orders, and
           after-sales support.
         </p>
-        <div class="mt-6 flex max-w-110 flex-wrap justify-center gap-2">
+        <div class="mt-7 flex max-w-110 flex-wrap justify-center gap-2.5">
           {SUGGESTIONS.map((s, i) => (
             <button
               type="button"
@@ -422,7 +422,7 @@ export class ChatPage extends LightElement {
                   delay: 0.18 + 0.06 * i,
                 });
               }}
-              class="bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface text-body-small shadow-e1 cursor-pointer rounded-xl px-4 py-2.5 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.97]"
+              class="bg-card border-outline-variant/80 text-on-surface-variant hover:border-primary/40 hover:bg-primary-container/40 hover:text-primary text-body-small shadow-e1 cursor-pointer rounded-2xl border px-4 py-2.5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-e2 active:scale-[0.97]"
               onClick={() => {
                 if (!this.busy) {
                   this.submit(s);
@@ -461,19 +461,22 @@ export class ChatPage extends LightElement {
             >
               <Icon name="menu" class="h-5 w-5" />
             </button>
-            <div class="bg-primary-container grid h-11 w-11 shrink-0 place-items-center rounded-2xl">
+            <div class="bg-primary shadow-e2 grid h-11 w-11 shrink-0 place-items-center rounded-2xl">
               <Icon
                 name="cat"
-                class="text-primary h-6.5 w-6.5"
-                strokeWidth={1.5}
+                class="h-6.5 w-6.5 text-white"
+                strokeWidth={1.7}
               />
             </div>
             <div class="flex min-w-0 flex-col leading-tight">
-              <span class="text-title-medium text-on-surface truncate">
+              <span class="text-title-medium text-on-surface truncate font-semibold">
                 Yukino · AI Assistant
               </span>
               <span class="text-label-small text-on-surface-variant flex items-center gap-1.5">
-                <span class="bg-success h-2 w-2 rounded-full" />
+                <span class="bg-success relative flex h-2 w-2">
+                  <span class="bg-success absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" />
+                  <span class="bg-success relative inline-flex h-2 w-2 rounded-full" />
+                </span>
                 Online · Yukino Select
               </span>
             </div>
@@ -503,7 +506,7 @@ export class ChatPage extends LightElement {
 
           <footer class="border-outline-variant border-t p-3 sm:p-4">
             <div class="mx-auto w-full max-w-3xl">
-              <div class="bg-surface-container-high focus-within:shadow-e2 flex items-end gap-2 rounded-2xl px-4 py-2.5 transition-shadow duration-200">
+              <div class="bg-card border-outline-variant/80 focus-within:border-primary/45 focus-within:shadow-e2 flex items-end gap-2 rounded-2xl border px-4 py-2.5 shadow-e1 transition-[border-color,box-shadow] duration-200">
                 <textarea
                   ref={this.inputRef}
                   rows={1}
@@ -518,7 +521,7 @@ export class ChatPage extends LightElement {
                       this.submit();
                     }
                   }}
-                  class="placeholder:text-on-surface-variant text-on-surface max-h-32 flex-1 resize-none border-none bg-transparent p-1.5 text-[15px] leading-normal outline-none disabled:opacity-60"
+                  class="placeholder:text-on-surface-variant/80 text-on-surface max-h-32 flex-1 resize-none border-none bg-transparent p-1.5 text-[15px] leading-normal outline-none disabled:opacity-60"
                 />
                 <button
                   type="button"
@@ -527,7 +530,7 @@ export class ChatPage extends LightElement {
                   onClick={() => {
                     this.submit();
                   }}
-                  class="bg-primary text-on-primary hover:bg-primary-hover hover:shadow-e1 disabled:bg-on-surface/12 disabled:text-on-surface-variant grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full transition-all duration-200 active:scale-95 disabled:cursor-not-allowed disabled:shadow-none"
+                  class="bg-primary text-on-primary hover:bg-primary-hover hover:shadow-e2 disabled:bg-on-surface/12 disabled:text-on-surface-variant grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full shadow-e1 transition-all duration-200 hover:-translate-y-px active:scale-95 disabled:cursor-not-allowed disabled:shadow-none"
                 >
                   <Icon name="send" class="h-5 w-5" />
                 </button>

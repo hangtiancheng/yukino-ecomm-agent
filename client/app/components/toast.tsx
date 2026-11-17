@@ -91,10 +91,10 @@ export class ToastHost extends LightElement {
               }
             }}
             class={cn(
-              "text-label-large shadow-e3 pointer-events-auto flex max-w-[84vw] items-center gap-2.5 rounded-md px-4 py-3",
+              "text-label-large shadow-e4 pointer-events-auto flex max-w-[84vw] items-center gap-2.5 rounded-xl px-4 py-3 font-medium",
               t.kind === "error"
-                ? "bg-error-container text-on-error-container"
-                : "bg-inverse-surface text-inverse-on-surface",
+                ? "border-error-container bg-error-container text-on-error-container border"
+                : "glass border-outline-variant/50 text-on-surface border",
             )}
           >
             <Icon

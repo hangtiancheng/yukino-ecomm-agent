@@ -131,14 +131,14 @@ export class AdminNav extends LightElement {
       <nav class="mt-4" aria-label="Admin navigation">
         <div
           ref={this.barRef}
-          class="scroll-slim bg-card shadow-e1 relative flex items-center gap-1 overflow-x-auto rounded-lg p-1.5"
+          class="scroll-slim bg-card border-outline-variant/60 shadow-e2 relative flex items-center gap-1 overflow-x-auto rounded-xl border p-1.5"
         >
           <span
             ref={this.pillRef}
-            class="bg-secondary-container absolute inset-y-1.5 left-0 rounded-full"
+            class="bg-secondary-container absolute inset-y-1.5 left-0 rounded-full shadow-e1"
             aria-hidden="true"
           />
-          <span class="bg-primary-container text-on-primary-container text-label-large relative z-10 mx-1 flex shrink-0 items-center gap-1.5 rounded-full py-1.5 pr-3.5 pl-2">
+          <span class="bg-primary text-label-large relative z-10 mx-1 flex shrink-0 items-center gap-1.5 rounded-full py-1.5 pr-3.5 pl-2 font-semibold text-white">
             <Icon name="cat" class="h-4.5 w-4.5" />
             Admin
           </span>

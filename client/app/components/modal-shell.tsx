@@ -98,7 +98,7 @@ export abstract class ModalShell extends LightElement {
           aria-modal="true"
           aria-label={this.dialogTitle()}
           class={cn(
-            "scroll-slim bg-surface-container-high shadow-e5 max-h-[90dvh] w-full overflow-y-auto rounded-xl p-6",
+            "edge-lit scroll-slim bg-card border-outline-variant/70 shadow-e5 max-h-[90dvh] w-full overflow-y-auto rounded-2xl border p-6",
             this.cardMaxW,
           )}
         >

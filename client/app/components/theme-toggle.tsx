@@ -56,7 +56,7 @@ export class ThemeToggle extends LightElement {
         aria-label={label}
         title={label}
         class={cn(
-          "text-on-surface-variant hover:bg-on-surface/8 active:bg-on-surface/12 grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full transition-colors duration-200",
+          "text-on-surface-variant bg-surface-container-high/70 hover:bg-secondary-container hover:text-on-secondary-container active:bg-on-surface/12 grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full transition-all duration-200 active:scale-95",
         )}
       >
         <span ref={this.iconRef} class="grid place-items-center">

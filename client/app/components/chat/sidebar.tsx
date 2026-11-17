@@ -47,9 +47,9 @@ function ConvList(opts: {
             });
           }}
           class={cn(
-            "w-full cursor-pointer rounded-lg px-3 py-2.5 text-left transition-colors duration-200",
+            "w-full cursor-pointer rounded-xl px-3 py-2.5 text-left transition-all duration-200",
             current === it.id
-              ? "bg-secondary-container hover:bg-secondary-container-hover"
+              ? "bg-secondary-container shadow-e1 hover:bg-secondary-container-hover"
               : "hover:bg-on-surface/8",
             busy && "cursor-not-allowed opacity-60",
           )}
@@ -97,8 +97,9 @@ export class ConvSidebar extends LightElement {
 
   protected override render() {
     return (
-      <aside class="border-outline-variant bg-surface-container-low flex h-full w-64 shrink-0 flex-col border-r">
-        <div class="text-title-small text-on-surface flex items-center gap-2 px-4 pt-4 pb-3">
+      <aside class="border-outline-variant/70 bg-surface-container-low flex h-full w-64 shrink-0 flex-col border-r">
+        <div class="text-title-small text-on-surface flex items-center gap-2 px-4 pt-4 pb-3 font-semibold">
+          <span class="bg-primary h-2 w-2 rounded-full" aria-hidden="true" />
           History
         </div>
         <div class="scroll-slim flex-1 overflow-y-auto px-2 pb-2.5">

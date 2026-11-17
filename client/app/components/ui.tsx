@@ -8,21 +8,21 @@ export type BtnSize = "md" | "sm";
 
 const BTN_BASE =
   "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap select-none " +
-  "transition-[background-color,color,box-shadow,transform] duration-200 ease-standard active:scale-[0.97] " +
-  "disabled:pointer-events-none disabled:opacity-38";
+  "transition-[background-color,color,box-shadow,transform,border-color] duration-200 ease-standard active:scale-[0.97] " +
+  "disabled:pointer-events-none disabled:opacity-40";
 const BTN_SIZE: Record<BtnSize, string> = {
   md: "h-10 px-5 text-label-large",
   sm: "h-8 px-3.5 text-label-medium",
 };
 const BTN_VARIANT: Record<BtnVariant, string> = {
   default:
-    "border border-outline text-primary hover:bg-primary/8 active:bg-primary/12",
-  go: "bg-primary text-on-primary shadow-e1 hover:bg-primary-hover hover:shadow-e2 active:bg-primary-pressed",
-  no: "bg-error text-on-error shadow-e1 hover:bg-error-hover hover:shadow-e2 active:bg-error-pressed",
-  ok: "bg-success text-on-success shadow-e1 hover:bg-success-hover hover:shadow-e2",
+    "border border-outline-variant text-on-surface hover:border-primary/50 hover:bg-primary/8 hover:text-primary active:bg-primary/12",
+  go: "bg-primary text-on-primary shadow-e1 hover:bg-primary-hover hover:shadow-e3 active:bg-primary-pressed",
+  no: "bg-error text-on-error shadow-e1 hover:bg-error-hover hover:shadow-e3 active:bg-error-pressed",
+  ok: "bg-success text-on-success shadow-e1 hover:bg-success-hover hover:shadow-e3",
   tonal:
-    "bg-secondary-container text-on-secondary-container hover:bg-secondary-container-hover",
-  text: "px-3.5 text-primary hover:bg-primary/8 active:bg-primary/12",
+    "bg-secondary-container text-on-secondary-container hover:bg-secondary-container-hover hover:shadow-e1",
+  text: "px-3.5 text-primary hover:bg-primary/10 active:bg-primary/16",
 };
 
 export interface BtnProps {
@@ -102,7 +102,7 @@ const PILL_TONE: Record<PillTone, string> = {
   fail: "bg-error-container text-on-error-container",
   missing: "bg-surface-container-high text-on-surface-variant",
   running: "bg-primary-container text-on-primary-container",
-  info: "bg-secondary-container text-on-secondary-container",
+  info: "bg-tertiary-container text-on-tertiary-container",
   "sev-strict": "bg-error-container text-on-error-container",
   "sev-medium": "bg-warning-container text-on-warning-container",
   "sev-lenient": "bg-surface-container-high text-on-surface-variant",
@@ -119,7 +119,7 @@ export function Pill({ tone = "plain", class: cls, children }: PillProps) {
   return (
     <span
       class={cn(
-        "text-label-small inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 whitespace-nowrap",
+        "text-label-small ring-outline-variant/60 inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-medium whitespace-nowrap ring-1 ring-inset",
         PILL_TONE[tone],
         cls,
       )}
@@ -152,7 +152,7 @@ export function Panel({
         enterOnce(el, { y: 14 });
       }}
       class={cn(
-        "bg-card shadow-e1 mt-4 rounded-lg p-4 sm:px-5 sm:py-4.5",
+        "edge-lit bg-card border-outline-variant/60 shadow-e1 mt-4 rounded-xl border p-4 transition-[box-shadow,transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-e3 sm:px-5 sm:py-4.5",
         tight && "pb-4",
         cls,
       )}
@@ -181,12 +181,15 @@ export interface TopBarProps {
 
 export function TopBar({ title, sub, children }: TopBarProps) {
   return (
-    <div class="bg-card shadow-e1 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-lg px-4 py-4 sm:px-5">
-      <h1 class="text-title-large text-on-surface sm:text-headline-small font-medium tracking-normal sm:font-medium">
+    <div class="edge-lit bg-card border-outline-variant/60 shadow-e2 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border px-4 py-4 sm:px-5">
+      <span class="bg-primary mr-0.5 h-8 w-1.5 shrink-0 rounded-full" aria-hidden="true" />
+      <h1 class="text-primary text-title-large sm:text-headline-small font-semibold tracking-tight sm:font-semibold">
         {title}
       </h1>
       {sub ? (
-        <span class="text-body-small text-on-surface-variant">{sub}</span>
+        <span class="text-body-small text-on-surface-variant max-w-2xl leading-relaxed">
+          {sub}
+        </span>
       ) : null}
       <span class="flex-1" />
       {children}
@@ -236,7 +239,7 @@ export interface StatProps {
 
 export function Stat({ label, value, tone, small }: StatProps) {
   return (
-    <div class="bg-card shadow-e1 min-w-28 rounded-lg px-4 py-2.5">
+    <div class="edge-lit bg-card border-outline-variant/60 shadow-e1 min-w-28 rounded-xl border px-4 py-2.5 transition-[box-shadow,border-color] duration-200 hover:border-primary/20 hover:shadow-e2">
       <span class="text-label-medium text-on-surface-variant block">
         {label}
       </span>
@@ -267,7 +270,7 @@ export function Tip({ children, class: cls }: TipProps) {
   return (
     <div
       class={cn(
-        "bg-secondary-container text-on-secondary-container text-body-small mt-3 rounded-lg px-4 py-3 leading-relaxed [&_b]:font-semibold",
+        "border-primary/25 bg-primary-container/55 text-on-primary-container text-body-small mt-3 rounded-xl border px-4 py-3 leading-relaxed [&_b]:font-semibold",
         cls,
       )}
     >
@@ -285,7 +288,7 @@ export function MissingBox({ children, class: cls }: MissingBoxProps) {
   return (
     <div
       class={cn(
-        "border-outline-variant text-on-surface-variant text-body-small rounded-lg border border-dashed px-4 py-8 text-center",
+        "border-outline-variant/80 bg-surface-container-low/50 text-on-surface-variant text-body-small rounded-xl border border-dashed px-4 py-8 text-center",
         cls,
       )}
     >

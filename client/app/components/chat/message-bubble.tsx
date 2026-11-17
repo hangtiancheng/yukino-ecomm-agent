@@ -318,7 +318,7 @@ export class MessageBubble extends LightElement {
     if (msg.role === "user") {
       return (
         <div class="flex items-end justify-end">
-          <div class="bg-primary-container text-on-primary-container max-w-[85%] rounded-lg rounded-br-md px-4 py-2.5 text-[14.5px] leading-relaxed wrap-break-word whitespace-pre-wrap sm:max-w-[74%]">
+          <div class="bg-primary text-on-primary shadow-e2 max-w-[85%] rounded-2xl rounded-br-md px-4 py-2.5 text-[14.5px] leading-relaxed font-medium wrap-break-word whitespace-pre-wrap sm:max-w-[74%]">
             {msg.text}
           </div>
         </div>
@@ -331,15 +331,15 @@ export class MessageBubble extends LightElement {
         : undefined;
     return (
       <div class="flex items-start justify-start gap-2.5">
-        <div class="bg-primary-container hidden h-9 w-9 shrink-0 place-items-center rounded-full sm:grid">
-          <Icon name="cat" class="text-primary h-5 w-5" strokeWidth={1.5} />
+        <div class="bg-primary shadow-e1 hidden h-9 w-9 shrink-0 place-items-center rounded-2xl sm:grid">
+          <Icon name="cat" class="h-5 w-5 text-white" strokeWidth={1.6} />
         </div>
         <div
           class={cn(
-            "max-w-[85%] rounded-lg rounded-bl-md px-4 py-3 text-[14.5px] leading-relaxed sm:max-w-[78%]",
+            "border-outline-variant/60 shadow-e1 max-w-[85%] rounded-2xl rounded-bl-md border px-4 py-3 text-[14.5px] leading-relaxed sm:max-w-[78%]",
             m.error
-              ? "bg-error-container text-on-error-container"
-              : "bg-surface-container-low text-on-surface",
+              ? "border-error-container bg-error-container text-on-error-container"
+              : "bg-card text-on-surface",
           )}
         >
           {m.error ??
@@ -354,7 +354,7 @@ export class MessageBubble extends LightElement {
                         ref={(el: Element | undefined) => {
                           enterOnce(el, { scale: 0.9, duration: 0.2 });
                         }}
-                        class="bg-surface-container-high text-on-surface-variant text-label-small inline-flex items-center gap-1.5 rounded-full px-2.5 py-1"
+                        class="bg-primary-container/70 text-on-primary-container text-label-small inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-medium"
                       >
                         <Icon name="wrench" class="h-3 w-3" />
                         Called {t}
