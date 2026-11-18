@@ -77,7 +77,7 @@ export class ChatPage extends LightElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
-    setPageTitle("Yukino Select · AI Assistant");
+    setPageTitle("Yukino Ecomm · AI Assistant");
     const v = localStorage.getItem(CONV_KEY);
     this.conversationId = v ? Number(v) : null;
     getUserId();
@@ -408,7 +408,7 @@ export class ChatPage extends LightElement {
           }}
           class="text-body-medium text-on-surface-variant mt-2.5 max-w-sm leading-6"
         >
-          Yukino Select's AI Assistant — ask me about products, orders, and
+          Yukino Ecomm's AI Assistant — ask me about products, orders, and
           after-sales support.
         </p>
         <div class="mt-7 flex max-w-110 flex-wrap justify-center gap-2.5">
@@ -477,7 +477,7 @@ export class ChatPage extends LightElement {
                   <span class="bg-success absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" />
                   <span class="bg-success relative inline-flex h-2 w-2 rounded-full" />
                 </span>
-                Online · Yukino Select
+                Online · Yukino Ecomm
               </span>
             </div>
             <div class="flex-1" />

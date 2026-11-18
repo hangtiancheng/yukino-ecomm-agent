@@ -10,7 +10,7 @@ import { setPageTitle } from "~/lib/router";
 export class NotFoundPage extends LightElement {
   override connectedCallback(): void {
     super.connectedCallback();
-    setPageTitle("Yukino Select · Not Found");
+    setPageTitle("Yukino Ecomm · Not Found");
   }
 
   protected override render() {

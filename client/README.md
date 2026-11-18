@@ -1,6 +1,6 @@
-# Yukino Select — Frontend
+# Yukino Ecomm — Frontend
 
-CSR-only SPA for the Yukino Select customer-support agent console: an AI chat
+CSR-only SPA for the Yukino Ecomm customer-support agent console: an AI chat
 page plus the admin pages (Knowledge Base, RAG eval, review queue,
 observability).
 

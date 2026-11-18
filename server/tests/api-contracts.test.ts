@@ -15,7 +15,7 @@ describe("backend API contracts", () => {
     });
   });
 
-  it("normalizes legacy no-order placeholders", () => {
+  it("normalizes no-order placeholders", () => {
     expect(normalizeOrderId("none")).toBeNull();
     expect(normalizeOrderId("无")).toBeNull();
     expect(normalizeOrderId(" A-100 ")).toBe("A-100");

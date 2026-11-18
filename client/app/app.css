@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ─────────────────────────────────────────────────────────────
-   Yukino Select · design tokens
+   Yukino Ecomm · design tokens
    A solid Tencent-blue theme on cool neutral surfaces. Every
    component consumes these semantic names, so the whole UI
    re-themes in one place. No gradients on theme colors.

@@ -1,10 +1,10 @@
 # yukino-ecomm-agent
 
-Node.js/TypeScript e-commerce customer-service agent ("Yukino Select"), a pnpm workspace:
+Node.js/TypeScript e-commerce customer-service agent ("Yukino Ecomm"), a pnpm workspace:
 
 - `client/` — CSR-only SPA console (Lit + `@yukino.js/lit-jsx` + Tailwind v4), see
   [`client/README.md`](client/README.md);
-- `server/` — Hono + LangChain/LangGraph backend, migrated from the original Python project. It is not wire-compatible with the Python service; capabilities are aligned and response shapes are kept close.
+- `server/` — Hono + LangChain/LangGraph backend for chat, retrieval, and knowledge-base jobs.
 
 ## Getting started
 
@@ -37,11 +37,11 @@ Jina/Cohere shaped). Intent and summary slots fall back to the chat group unless
 
 ## Storage
 
-The Python project used MySQL + Milvus Standalone. This server uses PostgreSQL for relational data:
+Relational data is stored in PostgreSQL:
 
 - relational tables live in the database pointed to by `DATABASE_URL` (Prisma schema in
   `server/prisma/schema.prisma`); run `pnpm db:migrate` before the first start;
-- without `MILVUS_URI` (legacy mode), dense embeddings are stored on `knowledge_chunks` and
+- without `MILVUS_URI` (in-process mode), dense embeddings are stored on `knowledge_chunks` and
   scored in-process, and BM25 is computed in-process with CJK bigram tokenization, so the
   four retrieval strategies (`vector` / `bm25` / `hybrid` / `hybrid_rerank`) keep working
   without a vector database;
@@ -51,8 +51,8 @@ The Python project used MySQL + Milvus Standalone. This server uses PostgreSQL f
 ### Optional: Milvus Standalone vector store
 
 Retrieval can instead run against a real Milvus Standalone — the Node server talks to
-it directly through the official Node SDK (`server/src/kb/milvus.ts`, gRPC on `:19530`); there
-is no bridge process. Install Milvus Standalone first, either way is supported by
+it directly through the official Node SDK (`server/src/kb/milvus.ts`, gRPC on `:19530`).
+Install Milvus Standalone first; either way is supported by
 `node server/main.js milvus-up/down`:
 
 1. **RPM/DEB package (preferred)** — download `milvus_<ver>-1_<arch>.deb` / `.rpm` for your
@@ -73,15 +73,14 @@ node server/main.js milvus-down                          # stop Milvus Standalon
 
 With `MILVUS_URI` set, Milvus is the authoritative vector store (the relational `embedding`
 column stays null; `vector_id` + status are still recorded) and a down Milvus surfaces as an
-error instead of silently degrading. Behaviour matches the Python original: dense ANN,
-native BM25 full-text search (a BM25 Function derives the `sparse` field from the
-analyzer-enabled `text` field, written as category + questions + answer on every upsert)
-and `hybrid` RRF fusion all run inside Milvus. The collection is created lazily on the
-first upsert with the embedding dimension inferred from the data (model-agnostic), Strong
-consistency (matches the always-consistent legacy store), and `MILVUS_TOKEN` covers a
-secured instance. A collection created by an older dense-only build is rejected on use with
-rebuild instructions (`node server/main.js kb-reset && node server/main.js kb-build &&
-node server/main.js kb-vectorize`).
+error instead of silently degrading. Milvus provides dense ANN, native BM25 full-text
+search (a BM25 Function derives the `sparse` field from the analyzer-enabled `text` field,
+written as category + questions + answer on every upsert) and `hybrid` RRF fusion. The
+collection is created lazily on the first upsert with the embedding dimension inferred from
+the data (model-agnostic), Strong consistency (the same guarantee as the in-process store),
+and `MILVUS_TOKEN` covers a secured instance. A collection with an unsupported dense-only
+schema is rejected on use with rebuild instructions (`node server/main.js kb-reset &&
+node server/main.js kb-build && node server/main.js kb-vectorize`).
 
 ## Offline jobs
 

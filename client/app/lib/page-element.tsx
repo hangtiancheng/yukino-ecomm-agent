@@ -13,7 +13,7 @@ export abstract class DataLoaderElement<T> extends LightElement {
   @state() protected loading = false;
 
   private everLoaded = false;
-  protected pageTitle = "Yukino Select";
+  protected pageTitle = "Yukino Ecomm";
 
   override connectedCallback(): void {
     super.connectedCallback();
