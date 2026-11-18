@@ -212,8 +212,8 @@ importers:
         specifier: ^0.80.0
         version: 0.80.0
       '@yukino.js/lit-jsx':
-        specifier: latest
-        version: 0.0.1
+        specifier: file:../../yukino.js/packages/lit-jsx
+        version: file:../yukino.js/packages/lit-jsx
       chart.js:
         specifier: ^4.5.1
         version: 4.5.1
@@ -1642,8 +1642,8 @@ packages:
   '@xterm/xterm@5.5.0':
     resolution: {integrity: sha512-hqJHYaQb5OptNunnyAnkHyM8aCjZ1MEIDTQu1iIbbTD/xops91NB5yq1ZK/dC2JDbVWtF23zUtl9JE2NqwT87A==}
 
-  '@yukino.js/lit-jsx@0.0.1':
-    resolution: {integrity: sha512-+yZgJ2nJDuhDQPh3yXR1Gv0ka49WeHuhmRKCik5rJonmpCkfIZfYQEakNYVNMBQdit53L8VyAmWhEEFu3TQVwg==}
+  '@yukino.js/lit-jsx@file:../yukino.js/packages/lit-jsx':
+    resolution: {directory: ../yukino.js/packages/lit-jsx, type: directory}
 
   '@yuku-codegen/binding-android-arm64@0.10.2':
     resolution: {integrity: sha512-Oc2KInVkPfUjEB4PeV6X0NvIoyYTzDe/WmqFrTwBqKs6YKnz4A7XwWQvJTb7M0rLz9a6WgpUUiiS5QKaCi4O/g==}
@@ -5692,7 +5692,7 @@ snapshots:
   '@xterm/xterm@5.5.0':
     optional: true
 
-  '@yukino.js/lit-jsx@0.0.1':
+  '@yukino.js/lit-jsx@file:../yukino.js/packages/lit-jsx':
     dependencies:
       lit: 3.3.3
 
